@@ -7,9 +7,10 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import styled from 'styled-components';
 import DateInputs from './DateInput';
-import SelectInput from './SelectInput';
+import PropertiesInput from './PropertiesInput';
 import Properties from '../interfaces/Properties';
 import { propertiesSelectMock, laboratoriesSelectMock } from '../data/dataMock';
+import LaboratoriesInput from './LaboratoriesInput';
 
 const FormStyled = styled.form`
   padding: 1rem 1rem;
@@ -27,8 +28,8 @@ function Form() {
   const [initialDate, setInitialDate] = useState<Date | string | null>(null);
   const [finalDate, setFinalDate] = useState<Date | string | null>(null);
   const [observation, setObservation] = useState<string>('');
-  const [properties, setProperties] = useState<Properties | string>({ property: '', cnpj: '' });
-  const [laboratories, setLaboratories] = useState<Properties | string>('');
+  const [properties, setProperties] = useState<string>('');
+  const [laboratories, setLaboratories] = useState<string>('');
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -40,6 +41,8 @@ function Form() {
     };
     console.log(JSON.stringify(data));
   };
+
+  /* ${name.length}/40 */
 
   return (
     <FormStyled id="form" onSubmit={(e) => handleSubmit(e)}>
@@ -53,7 +56,7 @@ function Form() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <HelperTextStyled>{`${name.length}/40`}</HelperTextStyled>
+          <HelperTextStyled>{`${JSON.stringify(properties)}`}</HelperTextStyled>
         </Grid>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Grid item xs={3}>
@@ -64,19 +67,17 @@ function Form() {
           </Grid>
         </LocalizationProvider>
         <Grid item xs={6}>
-          <SelectInput
-            label="Propriedades"
+          <PropertiesInput
             data={propertiesSelectMock}
-            selectValue={properties}
-            setSelectValue={setProperties}
+            properties={properties}
+            setProperties={setProperties}
           />
         </Grid>
         <Grid item xs={6}>
-          <SelectInput
-            label="Laboratório"
+          <LaboratoriesInput
             data={laboratoriesSelectMock}
-            selectValue={laboratories}
-            setSelectValue={setLaboratories}
+            laboratories={laboratories}
+            setLaboratories={setLaboratories}
           />
         </Grid>
         <Grid item xs={12}>
