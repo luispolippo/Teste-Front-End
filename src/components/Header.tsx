@@ -33,7 +33,7 @@ function Header() {
   return (
     <HeaderStyled>
       <H1Styled>Teste front-end</H1Styled>
-      <ButtonStyled variant="text">Salvar</ButtonStyled>
+      <ButtonStyled type="submit" form="form" variant="text">Salvar</ButtonStyled>
     </HeaderStyled>
   );
 }
