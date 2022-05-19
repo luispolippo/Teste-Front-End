@@ -11,6 +11,7 @@ import PropertiesInput from './PropertiesInput';
 import Properties from '../interfaces/Properties';
 import { propertiesSelectMock, laboratoriesSelectMock } from '../data/dataMock';
 import LaboratoriesInput from './LaboratoriesInput';
+import Laboratories from '../interfaces/Laboratories';
 
 const FormStyled = styled.form`
   padding: 1rem 1rem;
@@ -33,16 +34,27 @@ function Form() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const data = {
-      nome: name,
-      dataInicial: initialDate,
-      dataFinal: finalDate,
-      observacoes: observation,
-    };
-    console.log(JSON.stringify(data));
+    if (properties && laboratories) {
+      const propertiesJSON: Properties = JSON.parse(properties);
+      const laboratoriesJSON: Laboratories = JSON.parse(laboratories);
+      const data = {
+        nome: name,
+        dataInicial: initialDate,
+        dataFinal: finalDate,
+        infosPropriedade: {
+          id: propertiesJSON.id,
+          nome: propertiesJSON.property,
+        },
+        cnpj: propertiesJSON.cnpj,
+        laboratorio: {
+          id: laboratoriesJSON.id,
+          nome: laboratoriesJSON.laboratory,
+        },
+        observacoes: observation,
+      };
+      console.log(JSON.stringify(data));
+    }
   };
-
-  /* ${name.length}/40 */
 
   return (
     <FormStyled id="form" onSubmit={(e) => handleSubmit(e)}>
@@ -56,7 +68,7 @@ function Form() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <HelperTextStyled>{`${JSON.stringify(properties)}`}</HelperTextStyled>
+          <HelperTextStyled>{`${name.length}/40`}</HelperTextStyled>
         </Grid>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Grid item xs={3}>
