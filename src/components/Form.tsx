@@ -38,6 +38,15 @@ function Form() {
         <Grid item xs={6}>
           <SelectInput label="Laboratório" data={laboratoriesSelectMock} />
         </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Observações"
+            multiline
+            rows={5}
+            variant="standard"
+            fullWidth
+          />
+        </Grid>
       </Grid>
     </FormStyled>
   );
