@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -30,8 +30,19 @@ function Form() {
   const [properties, setProperties] = useState<Properties | string>({ property: '', cnpj: '' });
   const [laboratories, setLaboratories] = useState<Properties | string>('');
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const data = {
+      nome: name,
+      dataInicial: initialDate,
+      dataFinal: finalDate,
+      observacoes: observation,
+    };
+    console.log(JSON.stringify(data));
+  };
+
   return (
-    <FormStyled>
+    <FormStyled id="form" onSubmit={(e) => handleSubmit(e)}>
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <TextField
