@@ -1,9 +1,6 @@
-export interface PropertiesSelect {
-  property: string,
-  cnpj: string,
-}
+import Properties from '../interfaces/Properties';
 
-const propertiesSelectMock: PropertiesSelect[] = [
+const propertiesSelectMock: Properties[] = [
   {
     property: 'Agrotis 1',
     cnpj: '04.909.987/0001-89',
