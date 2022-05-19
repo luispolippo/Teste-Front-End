@@ -5,6 +5,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import styled from 'styled-components';
 import DateInputs from './DateInput';
+import SelectInput from './SelectInput';
 
 const FormStyled = styled.form`
   padding: 1rem 1rem;
@@ -30,6 +31,12 @@ function Form() {
             <DateInputs label="Data Final" />
           </Grid>
         </LocalizationProvider>
+        <Grid item xs={6}>
+          <SelectInput label="Propriedades" />
+        </Grid>
+        <Grid item xs={6}>
+          <SelectInput label="Laboratório" />
+        </Grid>
       </Grid>
     </FormStyled>
   );
