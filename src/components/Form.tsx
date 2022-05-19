@@ -7,9 +7,11 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import styled from 'styled-components';
 import DateInputs from './DateInput';
-import SelectInput from './SelectInput';
+import PropertiesInput from './PropertiesInput';
 import Properties from '../interfaces/Properties';
 import { propertiesSelectMock, laboratoriesSelectMock } from '../data/dataMock';
+import LaboratoriesInput from './LaboratoriesInput';
+import Laboratories from '../interfaces/Laboratories';
 
 const FormStyled = styled.form`
   padding: 1rem 1rem;
@@ -27,18 +29,31 @@ function Form() {
   const [initialDate, setInitialDate] = useState<Date | string | null>(null);
   const [finalDate, setFinalDate] = useState<Date | string | null>(null);
   const [observation, setObservation] = useState<string>('');
-  const [properties, setProperties] = useState<Properties | string>({ property: '', cnpj: '' });
-  const [laboratories, setLaboratories] = useState<Properties | string>('');
+  const [properties, setProperties] = useState<string>('');
+  const [laboratories, setLaboratories] = useState<string>('');
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const data = {
-      nome: name,
-      dataInicial: initialDate,
-      dataFinal: finalDate,
-      observacoes: observation,
-    };
-    console.log(JSON.stringify(data));
+    if (properties && laboratories) {
+      const propertiesJSON: Properties = JSON.parse(properties);
+      const laboratoriesJSON: Laboratories = JSON.parse(laboratories);
+      const data = {
+        nome: name,
+        dataInicial: initialDate,
+        dataFinal: finalDate,
+        infosPropriedade: {
+          id: propertiesJSON.id,
+          nome: propertiesJSON.property,
+        },
+        cnpj: propertiesJSON.cnpj,
+        laboratorio: {
+          id: laboratoriesJSON.id,
+          nome: laboratoriesJSON.laboratory,
+        },
+        observacoes: observation,
+      };
+      console.log(JSON.stringify(data));
+    }
   };
 
   return (
@@ -64,19 +79,17 @@ function Form() {
           </Grid>
         </LocalizationProvider>
         <Grid item xs={6}>
-          <SelectInput
-            label="Propriedades"
+          <PropertiesInput
             data={propertiesSelectMock}
-            selectValue={properties}
-            setSelectValue={setProperties}
+            properties={properties}
+            setProperties={setProperties}
           />
         </Grid>
         <Grid item xs={6}>
-          <SelectInput
-            label="Laboratório"
+          <LaboratoriesInput
             data={laboratoriesSelectMock}
-            selectValue={laboratories}
-            setSelectValue={setLaboratories}
+            laboratories={laboratories}
+            setLaboratories={setLaboratories}
           />
         </Grid>
         <Grid item xs={12}>
