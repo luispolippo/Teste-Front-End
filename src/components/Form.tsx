@@ -6,6 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import styled from 'styled-components';
 import DateInputs from './DateInput';
 import SelectInput from './SelectInput';
+import { propertiesSelectMock, laboratoriesSelectMock } from '../data/dataMock';
 
 const FormStyled = styled.form`
   padding: 1rem 1rem;
@@ -32,10 +33,10 @@ function Form() {
           </Grid>
         </LocalizationProvider>
         <Grid item xs={6}>
-          <SelectInput label="Propriedades" />
+          <SelectInput label="Propriedades" data={propertiesSelectMock} />
         </Grid>
         <Grid item xs={6}>
-          <SelectInput label="Laboratório" />
+          <SelectInput label="Laboratório" data={laboratoriesSelectMock} />
         </Grid>
       </Grid>
     </FormStyled>
