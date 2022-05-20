@@ -8,10 +8,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import styled from 'styled-components';
 import DateInputs from './DateInput';
 import PropertiesInput from './PropertiesInput';
-import Properties from '../interfaces/Properties';
-import { propertiesSelectMock, laboratoriesSelectMock } from '../data/dataMock';
 import LaboratoriesInput from './LaboratoriesInput';
+import Properties from '../interfaces/Properties';
 import Laboratories from '../interfaces/Laboratories';
+import FormData from '../interfaces/FormData';
+import { propertiesSelectMock, laboratoriesSelectMock } from '../data/dataMock';
 
 const FormStyled = styled.form`
   padding: 1rem 1rem;
@@ -37,7 +38,7 @@ function Form() {
     if (properties && laboratories) {
       const propertiesJSON: Properties = JSON.parse(properties);
       const laboratoriesJSON: Laboratories = JSON.parse(laboratories);
-      const data = {
+      const data: FormData = {
         nome: name,
         dataInicial: initialDate,
         dataFinal: finalDate,
@@ -67,6 +68,7 @@ function Form() {
             fullWidth
             value={name}
             onChange={(e) => setName(e.target.value)}
+            inputProps={{ maxLength: '40' }}
           />
           <HelperTextStyled>{`${name.length}/40`}</HelperTextStyled>
         </Grid>
@@ -101,6 +103,7 @@ function Form() {
             value={observation}
             onChange={(e) => { setObservation(e.target.value); }}
             fullWidth
+            inputProps={{ maxLength: 1000 }}
           />
           <HelperTextStyled>{`${observation.length}/1000`}</HelperTextStyled>
         </Grid>
