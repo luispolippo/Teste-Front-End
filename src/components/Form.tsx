@@ -25,13 +25,19 @@ const HelperTextStyled = styled(FormHelperText)`
   }
 `;
 
-function Form() {
+type FormProps = {
+  setOpen: (open: boolean) => void
+};
+
+function Form(props: FormProps) {
   const [name, setName] = useState<string>('');
   const [initialDate, setInitialDate] = useState<Date | string | null>(null);
   const [finalDate, setFinalDate] = useState<Date | string | null>(null);
   const [observation, setObservation] = useState<string>('');
   const [properties, setProperties] = useState<string>('');
   const [laboratories, setLaboratories] = useState<string>('');
+
+  const { setOpen } = props;
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -54,6 +60,7 @@ function Form() {
         observacoes: observation,
       };
       console.log(JSON.stringify(data));
+      setOpen(true);
     }
   };
 
